@@ -3,6 +3,7 @@ import pickle
 
 
 model = pickle.load(popPred.pkl,'rb')
+model2 = pickle.load(proPred.pkl, 'rb')
 app = Flask(__name__)
 
 @app.route('/')
@@ -17,7 +18,9 @@ def process_year():
     result = f"You entered the year: {year}"
     print(result)
     r2 = model.predict([[year]])
-    return render_template('ml.html', o1=result, o2 = r2)
+    r3 = model2.predict(r2)
+    
+    return render_template('ml.html', o1=result, o2 = r2, o3 = r3)
 
 if __name__ == '__main__':
     app.run(debug=True)
